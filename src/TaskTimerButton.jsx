@@ -5,6 +5,7 @@ export function TaskTimerButton() {
 
   function handleClick() {
     setIsRunning(!isRunning);
+    console.log(isRunning)
   }
 
   return (
