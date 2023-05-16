@@ -16,12 +16,23 @@ import './App.css'
 // - Function to copy exported data to clipboard
 
 export default function App() {
+  const [tasks, setTasks] = useState([]);
+
+  const handleAddTask = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
+
+  const handleExportData = () => {
+    console.log(tasks);
+    // Perform export logic here
+  };
+
   return (
     <>
-      <TaskInput />
+      <TaskInput onAddTask={handleAddTask} />
       <TaskTimerButton />
-      <ExportData />
+      <ExportData tasks={tasks} onExportData={handleExportData} />
     </>
-  )
+  );
 }
 

@@ -1,8 +1,12 @@
 import { useState } from 'react';
 
-export function TaskInput() {
+export function TaskInput(props) {
     const [task, setTask] = useState('');
     const [tasks, setTasks] = useState([]);
+
+    // useEffect(() => {
+    //     console.log(tasks);
+    //   }, [tasks]);
   
     function handleChange(event) {
       setTask(event.target.value);
@@ -18,6 +22,7 @@ export function TaskInput() {
       console.log(tasks)
    
     }
+    
   
     return (
       <form onSubmit={handleSubmit}>
