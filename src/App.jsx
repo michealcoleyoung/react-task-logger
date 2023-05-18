@@ -20,6 +20,7 @@ export default function App() {
 
   const handleAddTask = (newTask) => {
     setTasks([...tasks, newTask]);
+    console.log("This is a test")
   };
 
   const handleExportData = () => {
@@ -31,7 +32,7 @@ export default function App() {
     <>
       <TaskInput onAddTask={handleAddTask} />
       <TaskTimerButton />
-      <ExportData tasks={tasks} onExportData={handleExportData} />
+      <ExportData tasks={tasks} onExportData={handleExportData}/>
     </>
   );
 }

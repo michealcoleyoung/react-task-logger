@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function TaskInput(props) {
     const [task, setTask] = useState('');
     const [tasks, setTasks] = useState([]);
 
-    // useEffect(() => {
-    //     console.log(tasks);
-    //   }, [tasks]);
+    useEffect(() => {
+        console.log(tasks);
+      }, [tasks]);
   
     function handleChange(event) {
       setTask(event.target.value);
@@ -17,12 +17,9 @@ export function TaskInput(props) {
       if(task.trim() !== '')
       // Add the task to the tasks array
       setTasks([...tasks, task]);
-      // Clear the task input field
+      // Clears the task input field
       setTask('');
-      console.log(tasks)
-   
     }
-    
   
     return (
       <form onSubmit={handleSubmit}>
