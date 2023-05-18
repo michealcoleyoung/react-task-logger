@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { TaskTimerButton } from './TaskTimerButton';
 
 export function TaskInput(props) {
   const [task, setTask] = useState('');
@@ -27,9 +28,11 @@ export function TaskInput(props) {
       <form onSubmit={handleSubmit}>
         <input type="text" value={task} onChange={handleChange} />
         <button type="submit">Add Task</button>
-      </form>
+      </form><br></br>
       {tasks.map((task, index) => (
-        <div key={index}>{task}</div>
+        <div key={index}>
+            {task}
+        </div>
       ))}
     </div>
   );

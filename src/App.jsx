@@ -30,9 +30,9 @@ export default function App() {
 
   return (
     <>
+    <TaskTimerButton />
       <TaskInput onAddTask={handleAddTask} />
-      <TaskTimerButton />
-      <ExportData tasks={tasks} onExportData={handleExportData}/>
+      {/* <ExportData tasks={tasks} onExportData={handleExportData}/> */}
     </>
   );
 }
