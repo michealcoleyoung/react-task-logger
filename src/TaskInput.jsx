@@ -19,7 +19,6 @@ export function TaskInput(props) {
     if (task.trim() !== '') {
       setTasks([...tasks, task]);
       setTask('');
-      console.log(setTask)
     }
   }
 
@@ -27,14 +26,23 @@ export function TaskInput(props) {
     setSelectedTask(task);
   }
 
+  function handleDeleteTask(task) {
+    setTasks(tasks.filter((t) => t !== task));
+    if (selectedTask === task) {
+      setSelectedTask('');
+    }
+  }
+
   return (
     <div>
-    {selectedTask}
-    <TaskTimerButton />
+      {selectedTask}
+      <TaskTimerButton selectedTask={selectedTask} />
+      <br />
       <form onSubmit={handleSubmit}>
         <input type="text" value={task} onChange={handleChange} />
         <button type="submit">Add Task</button>
       </form>
+      <br />
       <div>
         {tasks.map((task, index) => (
           <div
@@ -43,6 +51,7 @@ export function TaskInput(props) {
             style={{ cursor: 'pointer', fontWeight: selectedTask === task ? 'bold' : 'normal' }}
           >
             {task}
+            <button onClick={() => handleDeleteTask(task)}>Delete</button>
           </div>
         ))}
       </div>
