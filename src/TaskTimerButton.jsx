@@ -20,6 +20,9 @@ export function TaskTimerButton() {
 
   function handleClick() {
     setIsRunning((prevIsRunning) => !prevIsRunning);
+    if (!isRunning) {
+      setElapsedTime(0);
+    }
   }
 
   function formatTime(timeInSeconds) {
@@ -31,7 +34,7 @@ export function TaskTimerButton() {
 
   return (
     <div>
-    {isRunning && <h1>{formatTime(elapsedTime)}</h1>}
+      <h1>{formatTime(elapsedTime)}</h1>
       <button onClick={handleClick}>{isRunning ? "Stop" : "Start"}</button>
     </div>
   );
