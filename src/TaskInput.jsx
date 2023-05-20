@@ -19,6 +19,7 @@ export function TaskInput(props) {
     if (task.trim() !== '') {
       setTasks([...tasks, task]);
       setTask('');
+      console.log(setTask)
     }
   }
 

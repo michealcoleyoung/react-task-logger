@@ -23,10 +23,10 @@ export default function App() {
     console.log("This is a test")
   };
 
-  const handleExportData = () => {
-    console.log(tasks);
-    // Perform export logic here
-  };
+  // const handleExportData = () => {
+  //   console.log(tasks);
+  //   // Perform export logic here
+  // };
 
   return (
     <>
