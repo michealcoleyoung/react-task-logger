@@ -5,10 +5,15 @@ export function TaskInput(props) {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
+  const [deletedTask, setDeletedTask] = useState(null);
 
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
+
+  if (tasks.length === 0) {
+    console.log('There are no tasks');
+  }
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -26,11 +31,13 @@ export function TaskInput(props) {
     setSelectedTask(task);
   }
 
-  function handleDeleteTask(task) {
+  function handleDeleteTask(task, event) {
+    event.stopPropagation(); // Prevent task selection
     setTasks(tasks.filter((t) => t !== task));
     if (selectedTask === task) {
       setSelectedTask('');
     }
+    setDeletedTask(task);
   }
 
   return (
@@ -48,10 +55,14 @@ export function TaskInput(props) {
           <div
             key={index}
             onClick={() => handleTaskSelect(task)}
-            style={{ cursor: 'pointer', fontWeight: selectedTask === task ? 'bold' : 'normal' }}
+            style={{
+              cursor: 'pointer',
+              fontWeight: selectedTask === task ? 'bold' : 'normal',
+              textDecoration: deletedTask === task ? 'line-through' : 'none',
+            }}
           >
             {task}
-            <button onClick={() => handleDeleteTask(task)}>Delete</button>
+            <button onClick={(event) => handleDeleteTask(task, event)}>Delete</button>
           </div>
         ))}
       </div>
