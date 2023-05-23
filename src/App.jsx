@@ -16,12 +16,8 @@ import './App.css'
 // - Function to copy exported data to clipboard
 
 export default function App() {
-  const [tasks, setTasks] = useState([]);
 
-  const handleAddTask = (newTask) => {
-    setTasks([...tasks, newTask]);
-    console.log("This is a test")
-  };
+
 
   // const handleExportData = () => {
   //   console.log(tasks);
@@ -30,7 +26,7 @@ export default function App() {
 
   return (
     <>
-      <TaskInput onAddTask={handleAddTask} />
+      <TaskInput />
     </>
   );
 }

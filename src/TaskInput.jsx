@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { TaskTimerButton } from './TaskTimerButton';
 
-export function TaskInput(props) {
+export function TaskInput() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
-  const [deletedTask, setDeletedTask] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
 
-  if (tasks.length === 0) {
-    console.log('There are no tasks');
-  }
+  useEffect(() => {
+    if (isTimerRunning) {
+      const intervalId = setInterval(() => {
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [isTimerRunning]);
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -29,6 +37,8 @@ export function TaskInput(props) {
 
   function handleTaskSelect(task) {
     setSelectedTask(task);
+    setElapsedTime(0);
+    setIsTimerRunning(false);
   }
 
   function handleDeleteTask(task, event) {
@@ -36,14 +46,28 @@ export function TaskInput(props) {
     setTasks(tasks.filter((t) => t !== task));
     if (selectedTask === task) {
       setSelectedTask('');
+      setElapsedTime(0);
     }
-    setDeletedTask(task);
   }
 
+  function handleTimerStartStop() {
+    setIsTimerRunning((prevIsTimerRunning) => !prevIsTimerRunning);
+  }
+
+  function formatTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+  
   return (
     <div>
       {selectedTask}
-      <TaskTimerButton selectedTask={selectedTask} />
+      <div>
+        <h1>{formatTime(elapsedTime)}</h1>
+        <button onClick={handleTimerStartStop}>{isTimerRunning ? 'Stop' : 'Start'}</button>
+      </div>
       <br />
       <form onSubmit={handleSubmit}>
         <input type="text" value={task} onChange={handleChange} />
@@ -58,7 +82,6 @@ export function TaskInput(props) {
             style={{
               cursor: 'pointer',
               fontWeight: selectedTask === task ? 'bold' : 'normal',
-              textDecoration: deletedTask === task ? 'line-through' : 'none',
             }}
           >
             {task}
