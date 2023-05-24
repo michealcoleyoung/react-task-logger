@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // This is what the output will look like once the ExportData component is complete
 // Task Name: Task 1
@@ -8,6 +8,7 @@ import React from 'react';
 // Task Date: 05/20/2023
 
 export function ExportData({ tasks, onExportData }) {
+  const [data, setData] = useState([])
   const handleExportData = () => {
     onExportData(tasks);
   };
