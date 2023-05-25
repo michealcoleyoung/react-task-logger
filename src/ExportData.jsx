@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
+import { TaskInput } from './TaskInput';
 
-// This is what the output will look like once the ExportData component is complete
-// Task Name: Task 1
-// Task Start: 04:06 AM
-// Task End: 04:06 AM
-// Time Worked: 20:53
-// Task Date: 05/20/2023
+// Basic structure of component will be set here
+// Functionality will be included in the main App
 
-export function ExportData({ tasks, onExportData }) {
-  const [data, setData] = useState([])
-  const handleExportData = () => {
-    onExportData(tasks);
-  };
+export function ExportData() {
 
   return (
     <div>
-      <button onClick={handleExportData}>Export Data</button>
-      <h2>Exported Tasks</h2>
+      <button >Export Data</button><br></br><br></br>
+      <textarea rows={20} cols={20}>
+
+      </textarea>
     </div>
   );
 }
