@@ -17,18 +17,11 @@ import './App.css'
 
 export default function App() {
 
-
-
-  // const handleExportData = () => {
-  //   console.log(tasks);
-  //   // Perform export logic here
-  // };
-
   return (
-    <>
-      <TaskInput />
-      <ExportData />
-    </>
+  <>
+    <TaskInput />
+    <ExportData />
+  </>
   );
 }
 

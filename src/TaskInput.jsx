@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import { TaskTimerButton } from './TaskTimerButton';
 
 export function TaskInput() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [selectedTasks, setSelectedTasks] = useState([]);
+  // const [elapsedTime, setElapsedTime] = useState(0);
+  // const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
 
   useEffect(() => {
-    if (isTimerRunning) {
-      const intervalId = setInterval(() => {
-        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-      }, 1000);
+    console.log(selectedTasks);
+  }, [selectedTasks])
 
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
-  }, [isTimerRunning]);
+  // useEffect(() => {
+  //   if (isTimerRunning) {
+  //     const intervalId = setInterval(() => {
+  //       setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+  //     }, 1000);
+
+  //     return () => {
+  //       clearInterval(intervalId);
+  //     };
+  //   }
+  // }, [isTimerRunning]);
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -37,8 +43,10 @@ export function TaskInput() {
 
   function handleTaskSelect(task) {
     setSelectedTask(task);
-    setElapsedTime(0);
-    setIsTimerRunning(false);
+    setSelectedTasks([...selectedTasks, selectedTask])
+
+    // setElapsedTime(0);
+    // setIsTimerRunning(false);
   }
 
   function handleDeleteTask(task, event) {
@@ -46,27 +54,28 @@ export function TaskInput() {
     setTasks(tasks.filter((t) => t !== task));
     if (selectedTask === task) {
       setSelectedTask('');
-      setElapsedTime(0);
+      // setElapsedTime(0);
     }
   }
 
-  function handleTimerStartStop() {
-    setIsTimerRunning((prevIsTimerRunning) => !prevIsTimerRunning);
-  }
+  // function handleTimerStartStop() {
+  //   setIsTimerRunning((prevIsTimerRunning) => !prevIsTimerRunning);
+  // }
 
-  function formatTime(timeInSeconds) {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
+  // function formatTime(timeInSeconds) {
+  //   const minutes = Math.floor(timeInSeconds / 60);
+  //   const seconds = timeInSeconds % 60;
 
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
+  //   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  // }
   
   return (
     <div>
-      {selectedTask}
+      <h2>{selectedTask}</h2>
       <div>
-        <h1>{formatTime(elapsedTime)}</h1>
-        <button onClick={handleTimerStartStop}>{isTimerRunning ? 'Stop' : 'Start'}</button>
+        {/* <h1>{formatTime(elapsedTime)}</h1>
+        <button onClick={handleTimerStartStop}>{isTimerRunning ? 'Stop' : 'Start'}</button> */}
+        <TaskTimerButton />
       </div>
       <br />
       <form onSubmit={handleSubmit}>

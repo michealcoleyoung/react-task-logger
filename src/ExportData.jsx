@@ -9,7 +9,7 @@ export function ExportData() {
   return (
     <div>
       <button >Export Data</button><br></br><br></br>
-      <textarea rows={20} cols={20}>
+      <textarea rows={20} cols={50}>
 
       </textarea>
     </div>
