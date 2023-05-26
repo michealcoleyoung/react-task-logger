@@ -6,8 +6,6 @@ export function TaskInput() {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
   const [selectedTasks, setSelectedTasks] = useState([]);
-  // const [elapsedTime, setElapsedTime] = useState(0);
-  // const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     console.log(tasks);
@@ -17,17 +15,6 @@ export function TaskInput() {
     console.log(selectedTasks);
   }, [selectedTasks])
 
-  // useEffect(() => {
-  //   if (isTimerRunning) {
-  //     const intervalId = setInterval(() => {
-  //       setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-  //     }, 1000);
-
-  //     return () => {
-  //       clearInterval(intervalId);
-  //     };
-  //   }
-  // }, [isTimerRunning]);
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -43,10 +30,7 @@ export function TaskInput() {
 
   function handleTaskSelect(task) {
     setSelectedTask(task);
-    setSelectedTasks([...selectedTasks, selectedTask])
-
-    // setElapsedTime(0);
-    // setIsTimerRunning(false);
+    setSelectedTasks((prevSelectedTasks) => [...prevSelectedTasks, task]);
   }
 
   function handleDeleteTask(task, event) {
@@ -58,23 +42,10 @@ export function TaskInput() {
     }
   }
 
-  // function handleTimerStartStop() {
-  //   setIsTimerRunning((prevIsTimerRunning) => !prevIsTimerRunning);
-  // }
-
-  // function formatTime(timeInSeconds) {
-  //   const minutes = Math.floor(timeInSeconds / 60);
-  //   const seconds = timeInSeconds % 60;
-
-  //   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  // }
-  
   return (
     <div>
       <h2>{selectedTask}</h2>
       <div>
-        {/* <h1>{formatTime(elapsedTime)}</h1>
-        <button onClick={handleTimerStartStop}>{isTimerRunning ? 'Stop' : 'Start'}</button> */}
         <TaskTimerButton />
       </div>
       <br />

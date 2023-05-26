@@ -25,6 +25,7 @@ export function TaskTimerButton() {
     if (!isRunning) {
       setElapsedTime(0);
     }
+    
   }
 
   function formatTime(timeInSeconds) {
