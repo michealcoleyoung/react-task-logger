@@ -5,16 +5,15 @@ export function TaskInput() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
-  const [selectedTasks, setSelectedTasks] = useState([]);
+  const [taskTimes, setTaskTimes] = useState({});
 
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
 
   useEffect(() => {
-    console.log(selectedTasks);
-  }, [selectedTasks])
-
+    console.log(taskTimes);
+  }, [taskTimes])
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -24,21 +23,21 @@ export function TaskInput() {
     event.preventDefault();
     if (task.trim() !== '') {
       setTasks([...tasks, task]);
+      setTaskTimes(prevTaskTimes => ({ ...prevTaskTimes, [task]: '00:00' }));
       setTask('');
     }
   }
 
   function handleTaskSelect(task) {
     setSelectedTask(task);
-    setSelectedTasks((prevSelectedTasks) => [...prevSelectedTasks, task]);
   }
 
   function handleDeleteTask(task, event) {
     event.stopPropagation(); // Prevent task selection
     setTasks(tasks.filter((t) => t !== task));
+    delete taskTimes[task];
     if (selectedTask === task) {
       setSelectedTask('');
-      // setElapsedTime(0);
     }
   }
 
@@ -46,7 +45,7 @@ export function TaskInput() {
     <div>
       <h2>{selectedTask}</h2>
       <div>
-        <TaskTimerButton />
+        <TaskTimerButton taskTimes={taskTimes} setTaskTimes={setTaskTimes} selectedTask={selectedTask} />
       </div>
       <br />
       <form onSubmit={handleSubmit}>
@@ -72,3 +71,4 @@ export function TaskInput() {
     </div>
   );
 }
+

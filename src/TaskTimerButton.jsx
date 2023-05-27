@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { TaskInput } from "./TaskInput";
+import React, { useState, useEffect } from 'react';
 
-export function TaskTimerButton() {
-    
+export function TaskTimerButton({ taskTimes, setTaskTimes, selectedTask }) {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -20,25 +18,33 @@ export function TaskTimerButton() {
     };
   }, [isRunning]);
 
+  useEffect(() => {
+    if (isRunning && selectedTask) {
+      setTaskTimes((prevTaskTimes) => ({
+        ...prevTaskTimes,
+        [selectedTask]: formatTime(elapsedTime),
+      }));
+    }
+  }, [elapsedTime, isRunning, selectedTask, setTaskTimes]);
+
   function handleClick() {
     setIsRunning((prevIsRunning) => !prevIsRunning);
     if (!isRunning) {
       setElapsedTime(0);
     }
-    
   }
 
   function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
 
-    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
   return (
     <div>
       <h1>{formatTime(elapsedTime)}</h1>
-      <button onClick={handleClick}>{isRunning ? "Stop" : "Start"}</button>
+      <button onClick={handleClick}>{isRunning ? 'Stop' : 'Start'}</button>
     </div>
   );
 }
