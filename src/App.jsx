@@ -21,7 +21,9 @@ export default function App() {
   return (
   <>
     <TaskInput /><br></br>
-    <ExportData />
+    <ExportData taskName={taskName} taskStart={taskStart}
+      timeWorked={timeWorked} taskDate={taskDate} taskEnd={taskEnd}
+    />
   </>
   );
 }
