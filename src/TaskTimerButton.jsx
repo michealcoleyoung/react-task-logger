@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 export function TaskTimerButton({ taskTimes, setTaskTimes, selectedTask }) {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     let intervalId;
@@ -22,15 +25,26 @@ export function TaskTimerButton({ taskTimes, setTaskTimes, selectedTask }) {
     if (isRunning && selectedTask) {
       setTaskTimes((prevTaskTimes) => ({
         ...prevTaskTimes,
-        [selectedTask]: formatTime(elapsedTime),
+        [selectedTask]: {
+          startTime,
+          endTime: isRunning ? '' : endTime, // Update endTime only when the timer is stopped
+          currentDate,
+          elapsedTime: formatTime(elapsedTime),
+        },
       }));
     }
-  }, [elapsedTime, isRunning, selectedTask, setTaskTimes]);
+  }, [elapsedTime, isRunning, selectedTask, setTaskTimes, startTime, endTime, currentDate]);
 
   function handleClick() {
     setIsRunning((prevIsRunning) => !prevIsRunning);
     if (!isRunning) {
       setElapsedTime(0);
+      const now = new Date();
+      setStartTime(now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+      setCurrentDate(now.toLocaleDateString());
+    } else {
+      const now = new Date();
+      setEndTime(now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
     }
   }
 
