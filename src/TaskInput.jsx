@@ -33,7 +33,7 @@ export function TaskInput() {
   }
 
   function handleDeleteTask(task, event) {
-    event.stopPropagation(); // Prevent task selection
+    event.stopPropagation(); // Prevent task selection when clicking Delete
     setTasks(tasks.filter((t) => t !== task));
     delete taskTimes[task];
     if (selectedTask === task) {
