@@ -22,23 +22,27 @@ export function TaskTimerButton({ taskTimes, setTaskTimes, selectedTask }) {
   }, [isRunning]);
 
   useEffect(() => {
-    if (isRunning && selectedTask) {
+    if (!isRunning && selectedTask) {
       setTaskTimes((prevTaskTimes) => ({
         ...prevTaskTimes,
         [selectedTask]: {
           startTime,
-          endTime: isRunning ? '' : endTime, // Update endTime only when the timer is stopped
+          endTime: getCurrentTime(),
           currentDate,
           elapsedTime: formatTime(elapsedTime),
         },
       }));
     }
-  }, [elapsedTime, isRunning, selectedTask, setTaskTimes, startTime, endTime, currentDate]);
+  }, [isRunning]);
+  
+  function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
 
+  
   function handleClick() {
-    setIsRunning((prevIsRunning) => !prevIsRunning);
     if (!isRunning) {
-      setElapsedTime(0);
       const now = new Date();
       setStartTime(now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
       setCurrentDate(now.toLocaleDateString());
@@ -46,15 +50,22 @@ export function TaskTimerButton({ taskTimes, setTaskTimes, selectedTask }) {
       const now = new Date();
       setEndTime(now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
     }
+    
+    setIsRunning((prevIsRunning) => !prevIsRunning);
+  
+    if (!isRunning) {
+      setElapsedTime(0);
+    }
   }
+  
 
   function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
-
+  
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
-
+  
   return (
     <div>
       <h1>{formatTime(elapsedTime)}</h1>

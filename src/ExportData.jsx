@@ -16,7 +16,7 @@ export function ExportData() {
     <div>
       <button onClick={handleExportClick}>Export Data</button><br></br><br></br>
       <textarea rows={20} cols={50}>
-        {exportedData}
+        {/* {exportedData} */}
       </textarea>
     </div>
   );
