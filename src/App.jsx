@@ -16,12 +16,19 @@ import './App.css'
 // - Function to copy exported data to clipboard
 
 export default function App() {
+  const [taskData, setTaskData] = useState([]);
+
+  function handleExportData() {
+    const exportedData = JSON.stringify(taskData);
+    console.log(exportedData);
+    // Perform further processing or set the exportedData state
+  }
 
 
   return (
   <>
-    <TaskInput /><br></br>
-    <ExportData />
+    <TaskInput setTaskData={setTaskData}/><br></br>
+    <ExportData taskData={taskData}/>
   </>
   );
 }

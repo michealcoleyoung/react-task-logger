@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TaskTimerButton } from './TaskTimerButton';
 
-export function TaskInput() {
+export function TaskInput({ setTaskData }) {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
@@ -18,6 +18,7 @@ export function TaskInput() {
   function handleChange(event) {
     setTask(event.target.value);
   }
+  
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -25,6 +26,7 @@ export function TaskInput() {
       setTasks([...tasks, task]);
       setTaskTimes(prevTaskTimes => ({ ...prevTaskTimes, [task]: '00:00' }));
       setTask('');
+      setTaskData((prevTaskData) => [...prevTaskData, { task, taskTimes }]);
     }
   }
 
