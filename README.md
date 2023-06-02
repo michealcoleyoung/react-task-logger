@@ -1,4 +1,4 @@
-## Task Logger
+# Task Logger
 
 The Task Timer App is a simple web application that allows users to track and manage their tasks along with the time spent on each task. It provides a user-friendly interface to add tasks, start/stop timers, and export task data.
 Features
@@ -9,7 +9,7 @@ Features
 * Delete tasks: Users can delete tasks from the list by clicking the "Delete" button next to each task.
 * Export task data: The app provides an "Export Data" button that allows users to export their task data in JSON format.
 
-Usage
+## Usage
 1. Enter a task name in the input field and click the "Add Task" button to add it to the task list.
 2. To start the timer for a task, click the "Start" button next to the task. The timer will begin counting the elapsed time.
 3. To stop the timer for a task, click the "Stop" button next to the task. The timer will stop, and the elapsed time will be displayed.
