@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export function ExportData({ taskData }) {
+  const [exportedData, setExportedData] = useState('');
+
   function handleExportClick() {
-    const exportedData = JSON.stringify(taskData);
-    console.log(exportedData);
-    // Perform further processing or set the exportedData state
+    setExportedData(JSON.stringify(taskData, null, 2));
   }
 
   return (
@@ -12,7 +12,7 @@ export function ExportData({ taskData }) {
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50} readOnly  />
+      <textarea rows={20} cols={50} value={exportedData} readOnly />
     </div>
   );
 }

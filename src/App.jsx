@@ -18,18 +18,11 @@ import './App.css'
 export default function App() {
   const [taskData, setTaskData] = useState([]);
 
-  function handleExportData() {
-    const exportedData = JSON.stringify(taskData);
-    console.log(exportedData);
-    // Perform further processing or set the exportedData state
-  }
-
-
   return (
-  <>
-    <TaskInput setTaskData={setTaskData}/><br></br>
-    <ExportData taskData={taskData}/>
-  </>
+    <>
+      <TaskInput setTaskData={setTaskData} />
+      <ExportData taskData={taskData} taskTimes={taskData.map(task => ({ task, taskTimes: task.taskTimes }))} />
+    </>
   );
 }
 
