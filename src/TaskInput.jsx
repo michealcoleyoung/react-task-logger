@@ -13,20 +13,22 @@ export function TaskInput({ setTaskData }) {
 
   useEffect(() => {
     console.log(taskTimes);
-  }, [taskTimes])
+  }, [taskTimes]);
 
   function handleChange(event) {
     setTask(event.target.value);
   }
-  
 
   function handleSubmit(event) {
     event.preventDefault();
     if (task.trim() !== '') {
-      setTasks([...tasks, task]);
-      setTaskTimes(prevTaskTimes => ({ ...prevTaskTimes, [task]: '00:00' }));
+      const newTask = {
+        task: task,
+        taskTimes: {},
+      };
+      setTasks([...tasks, newTask]);
+      setTaskData([...tasks, newTask]); // Update the taskData in the parent component
       setTask('');
-      setTaskData((prevTaskData) => [...prevTaskData, { task, taskTimes }]);
     }
   }
 
@@ -36,9 +38,8 @@ export function TaskInput({ setTaskData }) {
 
   function handleDeleteTask(task, event) {
     event.stopPropagation(); // Prevent task selection when clicking Delete
-    setTasks(tasks.filter((t) => t !== task));
-    delete taskTimes[task];
-    if (selectedTask === task) {
+    setTasks(tasks.filter((t) => t.task !== task.task));
+    if (selectedTask === task.task) {
       setSelectedTask('');
     }
   }
@@ -47,7 +48,11 @@ export function TaskInput({ setTaskData }) {
     <div>
       <h2>{selectedTask}</h2>
       <div>
-        <TaskTimerButton taskTimes={taskTimes} setTaskTimes={setTaskTimes} selectedTask={selectedTask} />
+        <TaskTimerButton
+          taskTimes={taskTimes}
+          setTaskTimes={setTaskTimes}
+          selectedTask={selectedTask}
+        />
       </div>
       <br />
       <form onSubmit={handleSubmit}>
@@ -59,13 +64,13 @@ export function TaskInput({ setTaskData }) {
         {tasks.map((task, index) => (
           <div
             key={index}
-            onClick={() => handleTaskSelect(task)}
+            onClick={() => handleTaskSelect(task.task)}
             style={{
               cursor: 'pointer',
-              fontWeight: selectedTask === task ? 'bold' : 'normal',
+              fontWeight: selectedTask === task.task ? 'bold' : 'normal',
             }}
           >
-            {task}
+            {task.task}
             <button onClick={(event) => handleDeleteTask(task, event)}>Delete</button>
           </div>
         ))}
@@ -73,4 +78,3 @@ export function TaskInput({ setTaskData }) {
     </div>
   );
 }
-

@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export function ExportData({ taskData }) {
-  const [exportedData, setExportedData] = useState('');
-
   function handleExportClick() {
-    setExportedData(JSON.stringify(taskData, null, 2));
+    const formattedData = taskData.map((taskItem) => {
+      const { task, taskTimes } = taskItem;
+      const { startTime, endTime, currentDate, elapsedTime } = taskTimes;
+      return `Task: ${task}\nDate: ${currentDate}\nTime Worked: ${elapsedTime}\nStart Time: ${startTime}\nEnd Time: ${endTime}\n================\n`;
+    });
+
+    const exportedData = formattedData.join('\n');
+    console.log(exportedData);
   }
 
   return (
@@ -12,7 +17,9 @@ export function ExportData({ taskData }) {
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50} value={exportedData} readOnly />
+      <textarea rows={20} cols={50}>
+  
+      </textarea>
     </div>
   );
 }
