@@ -9,7 +9,15 @@ export function ExportData({ taskData }) {
     });
 
     const exportedData = formattedData.join('\n');
-    console.log(exportedData);
+
+    // Copy the data to the clipboard
+    navigator.clipboard.writeText(exportedData)
+      .then(() => {
+        console.log('Data copied to clipboard!');
+      })
+      .catch((error) => {
+        console.error('Failed to copy data to clipboard:', error);
+      });
   }
 
   return (
@@ -17,8 +25,7 @@ export function ExportData({ taskData }) {
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50}>
-  
+      <textarea rows={20} cols={50} defaultValue={taskData.join('\n')}>
       </textarea>
     </div>
   );
