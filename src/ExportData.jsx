@@ -1,11 +1,11 @@
 import React from 'react';
 
-export function ExportData({ taskData }) {
+export function ExportData({ taskData, startTime, endTime }) {
   function handleExportClick() {
     const formattedData = taskData.map((taskItem) => {
       const { task, taskTimes } = taskItem;
       const { startTime, endTime, currentDate, elapsedTime } = taskTimes;
-      return `Task: ${task}\nDate: ${currentDate}\nTime Worked: ${elapsedTime}\nStart Time: ${startTime}\nEnd Time: ${endTime}\n================\n`;
+      return `Task: ${task}\nDate: ${currentDate}\nTime Worked: ${elapsedTime}\nStart Time: ${startTime}\nEnd Time: ${endTime}\n`;
     });
 
     const exportedData = formattedData.join('\n');
@@ -25,7 +25,7 @@ export function ExportData({ taskData }) {
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50} defaultValue={taskData.join('\n')}>
+      <textarea rows={20} cols={50} >
       </textarea>
     </div>
   );
