@@ -30,11 +30,7 @@ export function ExportData({ taskData }) {
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50} value={taskData.map((taskItem) => {
-        const { task, taskTimes } = taskItem;
-        const { startTime, endTime, currentDate, elapsedTime } = taskTimes;
-        return `Task: ${task}\nStart Time: ${startTime}\nEnd Time: ${endTime}\nDate: ${formatDate(currentDate)}\nTime Worked: ${elapsedTime}\n`;
-      }).join('\n')} />
+      <textarea rows={20} cols={50} value={taskData.map((taskItem) => JSON.stringify(taskItem)).join('\n')} />
     </div>
   );
 }
