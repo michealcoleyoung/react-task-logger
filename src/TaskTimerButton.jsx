@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export function TaskTimerButton({ setTaskTimes, selectedTask }) {
+export function TaskTimerButton({ tasks, setTasks, selectedTask, setTaskData }) {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [startTime, setStartTime] = useState('');
@@ -23,16 +23,19 @@ export function TaskTimerButton({ setTaskTimes, selectedTask }) {
 
   useEffect(() => {
     if (!isRunning && selectedTask) {
-      const taskTimeData = {
-        startTime,
-        endTime: getCurrentTime(),
-        currentDate,
-        elapsedTime: formatTime(elapsedTime),
-      };
-      setTaskTimes((prevTaskTimes) => ({
-        ...prevTaskTimes,
-        [selectedTask]: taskTimeData,
-      }));
+      const taskIndex = tasks.findIndex((task) => task.task === selectedTask);
+      if (taskIndex !== -1) {
+        const updatedTasks = [...tasks];
+        const taskTimeData = {
+          startTime,
+          endTime: getCurrentTime(),
+          currentDate,
+          elapsedTime: formatTime(elapsedTime),
+        };
+        updatedTasks[taskIndex].taskTimes = taskTimeData;
+        setTasks(updatedTasks);
+        setTaskData(updatedTasks); // Update the taskData in the parent component
+      }
     }
   }, [isRunning]);
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-export function ExportData({ taskData, startTime, endTime }) {
+export function ExportData({ taskData }) {
   function handleExportClick() {
     const formattedData = taskData.map((taskItem) => {
       const { task, taskTimes } = taskItem;
       const { startTime, endTime, currentDate, elapsedTime } = taskTimes;
-      return `Task: ${task}\nDate: ${currentDate}\nTime Worked: ${elapsedTime}\nStart Time: ${startTime}\nEnd Time: ${endTime}\n`;
+      return `Task: ${task}\nStart Time: ${startTime}\nEnd Time: ${endTime}\nDate: ${formatDate(currentDate)}\nTime Worked: ${elapsedTime}\n`;
     });
 
     const exportedData = formattedData.join('\n');
@@ -20,13 +20,21 @@ export function ExportData({ taskData, startTime, endTime }) {
       });
   }
 
+  function formatDate(dateString) {
+    const [month, day, year] = dateString.split('/');
+    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
+  }
+
   return (
     <div>
       <button onClick={handleExportClick}>Export Data</button>
       <br />
       <br />
-      <textarea rows={20} cols={50} >
-      </textarea>
+      <textarea rows={20} cols={50} value={taskData.map((taskItem) => {
+        const { task, taskTimes } = taskItem;
+        const { startTime, endTime, currentDate, elapsedTime } = taskTimes;
+        return `Task: ${task}\nStart Time: ${startTime}\nEnd Time: ${endTime}\nDate: ${formatDate(currentDate)}\nTime Worked: ${elapsedTime}\n`;
+      }).join('\n')} />
     </div>
   );
 }

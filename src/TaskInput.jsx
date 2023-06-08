@@ -5,15 +5,6 @@ export function TaskInput({ setTaskData }) {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
-  const [taskTimes, setTaskTimes] = useState({});
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
-
-  useEffect(() => {
-    console.log(taskTimes);
-  }, [taskTimes]);
 
   function handleChange(event) {
     setTask(event.target.value);
@@ -24,7 +15,12 @@ export function TaskInput({ setTaskData }) {
     if (task.trim() !== '') {
       const newTask = {
         task: task,
-        taskTimes: {},
+        taskTimes: {
+          startTime: '',
+          endTime: '',
+          currentDate: '',
+          elapsedTime: '',
+        },
       };
       setTasks([...tasks, newTask]);
       setTaskData([...tasks, newTask]); // Update the taskData in the parent component
@@ -49,9 +45,10 @@ export function TaskInput({ setTaskData }) {
       <h2>{selectedTask}</h2>
       <div>
         <TaskTimerButton
-          taskTimes={taskTimes}
-          setTaskTimes={setTaskTimes}
+          tasks={tasks}
+          setTasks={setTasks}
           selectedTask={selectedTask}
+          setTaskData={setTaskData}
         />
       </div>
       <br />

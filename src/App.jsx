@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TaskInput } from './TaskInput';
 import { ExportData } from './ExportData';
-import './App.css'
+import './App.css';
 
 export default function App() {
   const [taskData, setTaskData] = useState([]);
@@ -12,10 +12,9 @@ export default function App() {
 
   return (
     <>
-      <TaskInput setTaskData={updateTaskData} /><br></br>
+      <TaskInput setTaskData={updateTaskData} />
+      <br />
       <ExportData taskData={taskData} />
     </>
   );
 }
-
-
